@@ -23,12 +23,12 @@ namespace DotaLoadScreenExport
 
         public static string GetJsonDB(List<LoadingScreenDBInfo> db)
         {
-            return JsonConvert.SerializeObject(db);
+            return JsonConvert.SerializeObject(db, Formatting.Indented);
         }
 
         public static string GetBasicJson(List<LoadingScreenDBInfo> db)
         {
-            return JsonConvert.SerializeObject(new { info = ToBasicInfo(db), dbDate = DateTime.UtcNow.ToLongDateString() });
+            return JsonConvert.SerializeObject(new { info = ToBasicInfo(db), dbDate = DateTime.UtcNow.ToLongDateString() }, Formatting.Indented);
         }
 
         public struct LoadingScreenDBInfo
@@ -57,7 +57,7 @@ namespace DotaLoadScreenExport
                     hash = hash * 23 + (int)Size;
                     hash = hash * 23 + FullPath.GetHashCode();
                     return hash;
-                }               
+                }
             }
 
             public override bool Equals(object obj)
@@ -67,8 +67,8 @@ namespace DotaLoadScreenExport
                     return false;
                 }
                 var other = (LoadingScreenDBInfo)obj;
-                return 
-                    other.ID == ID && other.Name == Name && 
+                return
+                    other.ID == ID && other.Name == Name &&
                     other.ImageLink == ImageLink && other.Crc32 == Crc32 &&
                     other.Size == Size && other.FullPath == FullPath;
             }
